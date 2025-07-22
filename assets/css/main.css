@@ -1,0 +1,19 @@
+/* Estilos personalizados para Friends Food */
+body { font-family: 'Comfortaa', sans-serif; line-height: 1.7; 
+  color: #686868;}
+h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: #312E23}
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.scroll-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.brand-color { color: #F5D547; }
+.bg-brand { background-color: #F5D547; }
+.bg-celeste { background-color: #003399; }
+.bg-pink { background-color: #E94A8B; }
+.text-pink { color: #E94A8B; }
+.text-celeste { color: #003399; } 
