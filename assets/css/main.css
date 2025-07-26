@@ -16,4 +16,53 @@ h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; color: #312E23}
 .bg-celeste { background-color: #003399; }
 .bg-pink { background-color: #E94A8B; }
 .text-pink { color: #E94A8B; }
-.text-celeste { color: #003399; } 
+.text-celeste { color: #003399; }
+
+/* Estilos para el estado active del navbar */
+.nav-link.active {
+  color: #E94A8B !important; /* Mismo color que el hover */
+}
+
+/* Asegurar que el estado active funcione tanto en mobile como desktop */
+@media (min-width: 768px) {
+  .nav-link.active {
+    color: #E94A8B !important;
+  }
+}
+
+/* Asegurar que el menú hamburguesa solo sea visible en mobile */
+@media (max-width: 767px) {
+  #menuToggle {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1.5rem !important;
+    z-index: 60 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+  }
+  
+  /* Prevenir scroll horizontal en mobile */
+  body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Asegurar que el contenido no exceda el ancho de la pantalla */
+  #content {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  /* Asegurar que las secciones no causen overflow */
+  section {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 768px) {
+  #menuToggle {
+    display: none !important;
+  }
+} 

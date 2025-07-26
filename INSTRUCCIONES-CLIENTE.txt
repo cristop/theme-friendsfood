@@ -1,0 +1,37 @@
+========================================
+     FRIENDS FOOD - INSTRUCCIONES
+========================================
+
+Para ver el sitio web:
+
+WINDOWS:
+1. Hacer doble clic en "iniciar-sitio.bat"
+2. Esperar a que se abra el navegador automáticamente
+3. ¡Listo! El sitio ya está funcionando
+
+MAC / LINUX:
+1. Hacer doble clic en "iniciar-sitio.py" (o ejecutar desde terminal)
+2. Esperar a que se abra el navegador automáticamente
+3. ¡Listo! El sitio ya está funcionando
+
+ALTERNATIVA PARA MAC / LINUX:
+1. Abrir Terminal
+2. Navegar a la carpeta del proyecto
+3. Ejecutar: chmod +x iniciar-sitio.sh
+4. Ejecutar: ./iniciar-sitio.sh
+
+OPCIÓN MANUAL (si las anteriores no funcionan):
+1. Abrir Terminal/Línea de comandos
+2. Navegar a la carpeta del proyecto
+3. Ejecutar: python iniciar-sitio.py
+4. Abrir navegador y ir a: http://localhost:8000
+
+========================================
+NOTAS IMPORTANTES:
+- NO cerrar la ventana/terminal que se abre
+- Para cerrar el sitio, cerrar la ventana/terminal
+- El sitio funciona en cualquier navegador moderno
+- Funciona en Windows, Mac y Linux
+- Requiere Python o Node.js instalado
+
+======================================== 

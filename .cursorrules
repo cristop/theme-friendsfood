@@ -98,3 +98,288 @@ REGLA ADICIONAL - ANIMACIONES AL SCROLLEAR:
     data-aos="slide-up"
 - AOS debe funcionar correctamente junto con el sistema de carga dinámica de secciones.
 - Si es necesario reactivar AOS después de cargar contenido dinámico, se debe llamar a AOS.refresh() luego de cada carga parcial.
+
+---
+
+REGLA ADICIONAL - SISTEMA DE PRELOAD CON SPINNER:
+
+- Cuando se hace clic en cualquier elemento del navbar (.nav-link), debe aparecer un preload visual que ocupe el 100% del ancho y alto de la pantalla.
+- El preload debe tener las siguientes características:
+  - Fondo blanco sólido (bg-white)
+  - Posicionamiento fijo que cubra toda la pantalla (fixed inset-0 z-50)
+  - Un spinner centrado con las siguientes especificaciones:
+    * SVG circular con dos círculos: uno estático gris claro y otro animado en color gris (#999)
+    * Tamaño de 30x30px
+    * Animación de rotación continua (1s linear infinite)
+  - Animaciones de entrada y salida:
+    * Entrada: fade-in simple del fondo blanco (opacity-0 a opacity-100)
+    * Salida: slide-up del fondo blanco completo (translate-y-0 a -translate-y-full)
+    * Duración de transiciones: 150ms para entrada, 400ms para salida
+    * El spinner interno NO debe animarse, solo el contenedor principal
+- El preload debe mostrarse inmediatamente al hacer clic y ocultarse automáticamente cuando termine la carga del contenido.
+- Debe usar clases Tailwind para todas las animaciones y transiciones.
+- El sistema debe ser completamente funcional con JavaScript vanilla (sin jQuery).
+- NO se debe usar overflow-hidden en el body durante el preload.
+
+TIP ADICIONAL PARA LOADER:
+- La animación de entrada debe ser muy rápida (150ms) para una transición inmediata al cambiar de sección.
+- Solo se anima el contenedor principal (fondo blanco), no el spinner interno.
+- Después de 500ms de ocultar el loader, se debe hacer una corrección adicional para asegurar que se vea bien.
+
+---
+
+TIP DE ESTILO PARA TEXTOS COMUNES:
+- Todos los textos comunes de las secciones deben usar la clase text-sm (no text-lg) para mayor limpieza visual y legibilidad.
+- Reservar text-lg o superior solo para títulos, subtítulos o destacados.
+
+---
+
+FORMATO ESTÁNDAR PARA TÍTULOS H2:
+
+### Estructura obligatoria:
+```html
+<div class="w-16 h-16 flex items-center justify-center bg-blue-50 rounded-full mb-4 mx-auto">
+  <i class="fas fa-[ICONO] text-celeste text-2xl"></i>
+</div>
+<h2 class="text-2xl font-bold text-celeste text-center mb-4 uppercase">TÍTULO</h2>
+<p class="text-sm mb-6 text-center max-w-2xl mx-auto">Descripción centrada del contenido</p>
+```
+
+### Elementos que NO deben cambiar:
+- **Tamaño del icono**: `w-16 h-16` (64x64px)
+- **Fondo del icono**: `bg-blue-50 rounded-full`
+- **Posicionamiento**: `flex items-center justify-center mb-4 mx-auto`
+- **Tamaño del título**: `text-2xl`
+- **Peso del título**: `font-bold`
+- **Alineación del título**: `text-center`
+- **Espaciado del título**: `mb-4`
+- **Transformación del título**: `uppercase`
+- **Tamaño del texto descriptivo**: `text-sm`
+- **Alineación del texto descriptivo**: `text-center`
+- **Ancho máximo del texto descriptivo**: `max-w-2xl mx-auto`
+- **Espaciado del texto descriptivo**: `mb-6`
+
+### Elementos que SÍ pueden cambiar:
+- **Color del título**: Puede cambiar de `text-celeste` a otro color según la sección
+- **Icono**: Debe ser apropiado para el contenido de la sección
+- **Texto descriptivo**: Debe describir el contenido de la sección
+
+### Iconos recomendados por sección:
+- **Empresa/Quienes somos**: `fa-building`
+- **Visión y valores**: `fa-eye`
+- **Normas de seguridad**: `fa-shield-alt`
+- **Servicios**: `fa-utensils`
+- **Calidad**: `fa-award`
+- **Clientes**: `fa-users`
+- **Contactos**: `fa-envelope`
+- **Planta**: `fa-industry`
+- **Gente/Staff**: `fa-user-tie`
+
+### Ejemplo de implementación:
+```html
+<!-- Sección de ejemplo -->
+<div class="mb-16" data-aos="fade-up">
+  <div class="w-16 h-16 flex items-center justify-center bg-blue-50 rounded-full mb-4 mx-auto">
+    <i class="fas fa-building text-celeste text-2xl"></i>
+  </div>
+  <h2 class="text-2xl font-bold text-celeste text-center mb-4 uppercase">Quienes somos</h2>
+  <p class="text-sm mb-6 text-center max-w-2xl mx-auto">Descripción centrada del contenido de la sección.</p>
+  
+  <!-- Contenido de la sección -->
+</div>
+```
+
+---
+
+REGLA PARA HEROES - TEXTO DESCRIPTIVO:
+
+### Estructura del hero:
+```html
+<!-- Hero section -->
+<div class="relative h-screen flex items-center justify-center">
+  <div class="absolute inset-0 w-full h-full z-0" style="background: url('...') center center / cover no-repeat; opacity: 1; filter: brightness(0.3); background-attachment: fixed;"></div>
+  <div class="relative z-10 text-center text-white px-4">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">TÍTULO PRINCIPAL</h1>
+    <p class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Descripción del hero SIN text-sm</p>
+  </div>
+</div>
+```
+
+### Regla importante:
+- **En los heroes**: Los párrafos descriptivos NO llevan `text-sm`
+- **En el resto del contenido**: Los párrafos SÍ llevan `text-sm` para mayor legibilidad
+- **Excepción**: Los títulos H2 con formato estándar mantienen `text-sm` en su descripción
+
+### Ejemplo de hero correcto:
+```html
+<p class="max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+  Descripción del hero con texto normal (sin text-sm)
+</p>
+```
+
+### Ejemplo de contenido interno correcto:
+```html
+<p class="text-sm mb-6">
+  Contenido interno con text-sm para mejor legibilidad
+</p>
+```
+
+---
+
+REGLA PARA BLOQUES DE CONTENIDO CON GRADIENTES E ICONOS:
+
+### Estructura para bloques temáticos (Visión, Misión, Valores, etc.):
+```html
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-10">
+  <!-- Bloque 1 -->
+  <div class="relative overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg border border-blue-200 transform hover:scale-105 transition-all duration-300">
+    <div class="absolute top-4 right-4 w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center opacity-20">
+      <i class="fas fa-[ICONO] text-blue-600 text-xl"></i>
+    </div>
+    <div class="relative z-10">
+      <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-[ICONO] text-white text-xl"></i>
+      </div>
+      <h3 class="text-xl font-bold text-blue-700 mb-4">TÍTULO</h3>
+      <p class="text-sm text-gray-700 leading-relaxed">Contenido descriptivo del bloque.</p>
+    </div>
+  </div>
+</div>
+```
+
+### Esquema de colores por tipo de contenido:
+- **Visión/Objetivos**: Azul (`from-blue-50 to-blue-100`, `border-blue-200`, `text-blue-700`)
+- **Misión/Propósito**: Verde (`from-green-50 to-green-100`, `border-green-200`, `text-green-700`)
+- **Valores/Principios**: Púrpura (`from-purple-50 to-purple-100`, `border-purple-200`, `text-purple-700`)
+- **Servicios**: Naranja (`from-orange-50 to-orange-100`, `border-orange-200`, `text-orange-700`)
+- **Calidad**: Dorado (`from-yellow-50 to-yellow-100`, `border-yellow-200`, `text-yellow-700`)
+
+### Iconos recomendados por tipo:
+- **Visión**: `fa-bullseye` (mira/objetivo)
+- **Misión**: `fa-rocket` (cohete/impulso)
+- **Valores**: `fa-star` (estrella/excelencia)
+- **Servicios**: `fa-utensils` (utensilios/servicio)
+- **Calidad**: `fa-award` (premio/calidad)
+- **Equipo**: `fa-users` (personas/equipo)
+- **Tecnología**: `fa-cogs` (engranajes/tecnología)
+
+---
+
+REGLA PARA FULLWIDTH-CARDS CON IMÁGENES:
+
+### Estructura para cards con imágenes de fondo:
+```html
+<section class="w-full mb-16">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <!-- Card individual -->
+    <div class="relative group h-80 cursor-pointer" data-aos="fade-up" style="background-image: url('assets/img/imagen.webp'); background-size: cover; background-position: center;">
+      <div class="absolute inset-0 bg-black/40 group-hover:bg-black/80 transition duration-300"></div>
+      <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-[#F5D547]/40 transition duration-300"></div>
+      <div class="relative z-10 flex flex-col items-center justify-center h-full w-full transition-all duration-300">
+        <h4 class="text-2xl font-extrabold text-white tracking-wide drop-shadow mb-0 transition-all duration-300 group-hover:mb-2 text-center">TÍTULO</h4>
+        <p class="text-white text-center text-base max-h-0 opacity-0 overflow-hidden group-hover:max-h-40 group-hover:opacity-100 transition-all duration-300 max-w-xs mx-auto">
+          Descripción del contenido con <span class="font-bold">texto destacado</span>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Características de las fullwidth-cards:
+- **Altura fija**: `h-80` (320px)
+- **Efecto hover**: Overlay oscuro + overlay amarillo semitransparente
+- **Animación de texto**: El título se mueve hacia arriba y aparece la descripción
+- **Transiciones**: 300ms para todos los efectos
+- **Responsive**: 1 columna en mobile, 2 en tablet, 4 en desktop
+- **AOS**: Animación fade-up con delays escalonados
+
+### Uso recomendado:
+- **Servicios principales** de la empresa
+- **Departamentos** o áreas de trabajo
+- **Procesos** o etapas de producción
+- **Equipamiento** o instalaciones
+
+---
+
+REGLA PARA ESTRUCTURA DE SECCIONES Y CONTENEDORES:
+
+### Estructura estándar para secciones:
+```html
+<!-- Sección sin estilos -->
+<section class="py-14">
+  <div class="max-w-6xl mx-auto px-4 mb-16" data-aos="fade-up">
+    <!-- Contenido de la sección -->
+  </div>
+</section>
+```
+
+### Reglas importantes:
+- **Las secciones ocupan todo el ancho** de la pantalla para poder aplicar colores de fondo
+- **El padding vertical** va en la sección: `py-14`
+- **El contenedor interno** solo maneja el ancho máximo y padding horizontal: `max-w-6xl mx-auto px-4`
+- **Para secciones con fondo**: El `<section>` puede tener clases de fondo (ej: `bg-gray-50`)
+- **El margen inferior** va en el contenedor interno: `mb-16`
+
+### Ejemplos de uso:
+```html
+<!-- Sección normal -->
+<section class="py-14">
+  <div class="max-w-6xl mx-auto px-4 mb-16" data-aos="fade-up">
+    <!-- Contenido -->
+  </div>
+</section>
+
+<!-- Sección con fondo -->
+<section class="bg-gray-50 py-14">
+  <div class="max-w-6xl mx-auto px-4 mb-16" data-aos="fade-up">
+    <!-- Contenido -->
+  </div>
+</section>
+
+<!-- Sección con padding personalizado -->
+<section class="py-32">
+  <div class="max-w-6xl mx-auto px-4 mb-16" data-aos="fade-up">
+    <!-- Contenido con más espacio -->
+  </div>
+</section>
+```
+
+---
+
+REGLA PARA RESPONSIVE DESIGN:
+
+### Principios generales de responsive:
+- **Mobile-first**: Siempre diseñar primero para mobile y luego escalar hacia desktop
+- **Breakpoints estándar**: Usar los breakpoints de Tailwind (`sm:`, `md:`, `lg:`, `xl:`)
+- **Grid responsive**: Implementar layouts que se adapten automáticamente
+- **Texto escalable**: Ajustar tamaños de texto según el dispositivo
+- **Espaciado adaptativo**: Usar padding/margin que se ajuste al viewport
+
+### Comportamientos responsive obligatorios:
+- **Mobile (< 768px)**: Layout vertical, elementos apilados
+- **Tablet (768px - 1024px)**: Layout intermedio, 2 columnas máximo
+- **Desktop (> 1024px)**: Layout completo, múltiples columnas permitidas
+
+### Clases responsive recomendadas:
+```html
+<!-- Grid responsive -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+<!-- Texto responsive -->
+<h1 class="text-2xl md:text-4xl lg:text-6xl">
+
+<!-- Espaciado responsive -->
+<div class="p-4 md:p-6 lg:p-8">
+
+<!-- Ocultar/mostrar elementos -->
+<div class="hidden md:block">Solo visible en desktop</div>
+<div class="block md:hidden">Solo visible en mobile</div>
+```
+
+### Reglas de implementación:
+- **Siempre probar** en múltiples tamaños de pantalla
+- **Usar flexbox/grid** para layouts adaptativos
+- **Evitar anchos fijos** que rompan en mobile
+- **Considerar touch targets** en mobile (mínimo 44px)
+- **Optimizar imágenes** para diferentes resoluciones

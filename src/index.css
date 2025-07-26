@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados para Friends Food */
+body { 
+  font-family: 'Comfortaa', sans-serif; 
+  line-height: 1.7; 
+  color: #686868;
+}
+
+h1, h2, h3, h4 { 
+  font-family: 'Poppins', sans-serif; 
+  color: #312E23;
+}
+
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.scroll-fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.brand-color { 
+  color: #F5D547; 
+}
+
+.bg-brand { 
+  background-color: #F5D547; 
+}
+
+.bg-celeste { 
+  background-color: #003399; 
+}
+
+.bg-pink { 
+  background-color: #E94A8B; 
+}
+
+.text-pink { 
+  color: #E94A8B; 
+}
+
+.text-celeste { 
+  color: #003399; 
+}
+
+/* Clases de color rosa para forzar su inclusión */
+.bg-pink-50 { background-color: #fdf2f8; }
+.bg-pink-100 { background-color: #fce7f3; }
+.bg-pink-200 { background-color: #fbcfe8; }
+.bg-pink-500 { background-color: #ec4899; }
+.bg-pink-600 { background-color: #db2777; }
+.text-pink-600 { color: #db2777; }
+.text-pink-700 { color: #be185d; }
+.border-pink-200 { border-color: #fbcfe8; }
+
+/* Clases de animación del preload que no se incluyen automáticamente */
+.scale-75 {
+  transform: scale(0.75);
+}
+
+.scale-95 {
+  transform: scale(0.95);
+}
+
+.scale-100 {
+  transform: scale(1);
+}
+
+.translate-y-8 {
+  transform: translateY(2rem);
+}
+
+.translate-y-0 {
+  transform: translateY(0);
+}
+
+.translate-y-full {
+  transform: translateY(100%);
+}
+
+.-translate-y-full {
+  transform: translateY(-100%);
+}
+
+.transition-all {
+  transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.transform {
+  transform: translateZ(0);
+} 
