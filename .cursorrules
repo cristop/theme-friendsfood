@@ -1,0 +1,100 @@
+TAILWIND (instalación local):
+
+- El proyecto ya usa Tailwind CSS instalado localmente, no por CDN.
+- Debe continuar usándose con los siguientes comandos:
+  - npm run dev → para desarrollo (--watch)
+  - npm run build → para producción (--minify)
+- El archivo de entrada es src/index.css con las directivas:
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+- El archivo de salida final es dist/output.css, que debe enlazarse desde index.html.
+- El archivo tailwind.config.js debe tener activado el purge apuntando a:
+    - index.html
+    - pages/**/*.html
+    - partials/**/*.html
+
+---
+
+CARGA DINÁMICA DE SECCIONES:
+
+- Todo el contenido de las secciones internas (como “home”, “about”, “empresa”, etc.) se carga dinámicamente en un contenedor con id="content", ubicado en index.html.
+- Estas secciones están en una carpeta pages/.
+- La carga debe hacerse con fetch() (no jQuery) al hacer clic en links con clase .nav-link.
+- Al hacer clic:
+  - Se actualiza la URL con history.pushState.
+  - Se muestra un preload visual (#loader) centrado en pantalla, con clases Tailwind (fixed, inset-0, flex, justify-center, items-center, etc.).
+  - El loader se oculta automáticamente cuando termina la carga.
+- También se deben cargar módulos reutilizables (partials/) como el bloque de contacto mediante atributos data-load-partial="contact-block.html" dentro de los archivos .html.
+
+---
+
+NAVEGACIÓN Y ESTADO DEL HISTORIAL:
+
+- El sistema debe soportar el botón "atrás" del navegador (window.onpopstate), cargando correctamente la sección correspondiente.
+- El comportamiento del sitio debe funcionar correctamente incluso si el usuario recarga la página en una ruta interna.
+
+---
+
+OPTIMIZACIONES GENERALES:
+
+- El código debe estar lo más optimizado y limpio posible.
+- Todo el HTML debe evitar repeticiones: se deben usar módulos parciales (header.html, footer.html, etc.).
+- Se debe evitar cualquier uso de jQuery. Todo debe resolverse con JavaScript moderno (ES6+).
+- Debe estar listo para trabajar con Live Server o Preview.js dentro de Cursor.
+
+---
+
+REGLAS VISUALES Y FUNCIONALES DEL HEADER:
+
+1. El header es un componente fixed (top-0, w-full, z-50) y debe comportarse así tanto en mobile como desktop.
+
+2. En escritorio (md: y superior):
+   - Cuando el scroll está en la parte superior (scrollY == 0):
+     - El fondo del header debe ser transparente (bg-transparent)
+     - El texto de los links de navegación y el logo deben ser blancos (text-white)
+   - Cuando se hace scroll:
+     - El fondo pasa a blanco (bg-white)
+     - El texto y el logo deben pasar al color del cuerpo del sitio (text-neutral-800)
+     - Se agrega una sombra (shadow-md)
+
+3. En mobile:
+   - Ícono hamburguesa visible (☰)
+   - Cuando el scroll está en 0:
+     - Fondo transparente
+     - El ícono hamburguesa debe ser blanco
+   - Cuando se hace scroll:
+     - Fondo blanco
+     - El ícono hamburguesa pasa a color del body
+   - Al hacer clic en el ícono hamburguesa:
+     - Se muestra un menú colapsable (#mobile-menu)
+     - Ese menú debe tener fondo blanco y texto con color del body (text-neutral-800)
+
+4. Todo este comportamiento debe implementarse con JavaScript puro (scroll listener, load listener, y classList.add/remove de Tailwind).
+
+---
+
+REGLA ADICIONAL - FLECHA DE SCROLL TOP:
+
+- Debe haber un botón flotante en la esquina inferior derecha de la pantalla que permita volver al inicio de la página (scroll top).
+- Este botón debe:
+  - Tener forma de flechita hacia arriba (↑ o ícono similar)
+  - Ser visible solo cuando el usuario ha hecho scroll hacia abajo (no en scrollY == 0)
+  - Estar posicionado con clases Tailwind (fixed, bottom-4, right-4, z-50)
+  - Tener animación de aparición/desaparición (ej: transition-opacity o scale)
+  - Al hacer clic, debe ejecutar un scroll suave hasta la parte superior de la página (scrollTo con behavior: "smooth")
+
+---
+
+REGLA ADICIONAL - ANIMACIONES AL SCROLLEAR:
+
+- El sitio debe tener animaciones al hacer scroll utilizando la librería AOS (Animate On Scroll).
+- La animación por defecto para los elementos que deban animarse será el efecto "slide-up".
+- La implementación debe:
+  - Incluir el archivo de estilos de AOS en el <head>
+  - Incluir el script de AOS al final del <body>
+  - Inicializar AOS con una duración de 800ms, easing 'ease-out', y el modo 'once' activado (solo una vez por elemento).
+- Los elementos que deban animarse deben tener el atributo:
+    data-aos="slide-up"
+- AOS debe funcionar correctamente junto con el sistema de carga dinámica de secciones.
+- Si es necesario reactivar AOS después de cargar contenido dinámico, se debe llamar a AOS.refresh() luego de cada carga parcial.
