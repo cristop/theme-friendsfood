@@ -4,8 +4,8 @@
   "description": "Friends Food website",
   "main": "index.html",
   "scripts": {
-    "dev": "tailwindcss -i ./src/index.css -o ./dist/output.css --watch",
-    "build": "tailwindcss -i ./src/index.css -o ./dist/output.css --minify",
+    "dev": "tailwindcss -i ./assets/css/index.css -o ./assets/css/output.css --watch",
+    "build": "tailwindcss -i ./assets/css/index.css -o ./assets/css/output.css --minify",
     "serve": "live-server --port=5500 --open=/index.html --entry-file=index.html"
   },
   "keywords": [],

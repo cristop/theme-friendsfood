@@ -106,8 +106,25 @@ class DynamicLoader {
   constructor() {
     this.contentContainer = document.getElementById('content');
     this.loader = document.getElementById('loader');
+    this.basePath = this.detectBasePath();
     this.currentPage = 'home'; // Default page
     this.init();
+  }
+
+  detectBasePath() {
+    // Detecta la ruta base de forma dinámica y robusta,
+    // funcionando tanto en raíz como en subdirectorios.
+    const scripts = document.getElementsByTagName('script');
+    let jsPath = '';
+    for (let i = 0; i < scripts.length; i++) {
+        if (scripts[i].src && scripts[i].src.includes('main.js')) {
+            jsPath = scripts[i].src;
+            break;
+        }
+    }
+    // De "http://dominio.com/sub/assets/js/main.js" extrae "/sub/"
+    const path = new URL(jsPath).pathname;
+    return path.substring(0, path.lastIndexOf('/assets/js/main.js')) + '/';
   }
 
   init() {
@@ -127,21 +144,22 @@ class DynamicLoader {
       if (e.state && e.state.page) {
         this.loadPage(e.state.page, false); // Don't update history on popstate
       } else {
-        this.loadPage('home', false); // Default to home if no state
+        // Al volver al estado inicial, usar la basePath
+        this.loadPage('home', false);
       }
     });
 
     // Detectar la ruta actual al cargar la página
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname.replace(this.basePath, '');
     let initialPage = 'home';
     
-    if (currentPath.includes('empresa')) initialPage = 'empresa';
-    else if (currentPath.includes('servicios')) initialPage = 'servicios';
-    else if (currentPath.includes('gente')) initialPage = 'gente';
-    else if (currentPath.includes('planta')) initialPage = 'planta';
-    else if (currentPath.includes('calidad')) initialPage = 'calidad';
-    else if (currentPath.includes('clientes')) initialPage = 'clientes';
-    else if (currentPath.includes('contactos')) initialPage = 'contactos';
+    if (currentPath.startsWith('empresa')) initialPage = 'empresa';
+    else if (currentPath.startsWith('servicios')) initialPage = 'servicios';
+    else if (currentPath.startsWith('gente')) initialPage = 'gente';
+    else if (currentPath.startsWith('planta')) initialPage = 'planta';
+    else if (currentPath.startsWith('calidad')) initialPage = 'calidad';
+    else if (currentPath.startsWith('clientes')) initialPage = 'clientes';
+    else if (currentPath.startsWith('contactos')) initialPage = 'contactos';
     
     // Cargar la página correspondiente a la ruta actual
     this.loadPage(initialPage, false);
@@ -173,7 +191,9 @@ class DynamicLoader {
       }
 
       if (updateHistory) {
-        const url = page === 'home' ? '/' : `/${page}`;
+        // Asegurarse de que la URL base siempre termine con una barra
+        const safeBasePath = this.basePath.endsWith('/') ? this.basePath : this.basePath + '/';
+        const url = page === 'home' ? safeBasePath : `${safeBasePath}${page}`;
         history.pushState({ page }, '', url);
       }
 
@@ -232,6 +252,10 @@ class DynamicLoader {
 
   showLoader() {
     if (this.loader) {
+      this.loader.style.opacity = '0';
+      this.loader.style.pointerEvents = 'none';
+      this.loader.style.transform = 'translateY(0)';
+
       // Animación del contenedor principal (fondo blanco) - fade-in simple
       this.loader.style.opacity = '1';
       this.loader.style.pointerEvents = 'auto';
@@ -245,16 +269,16 @@ class DynamicLoader {
         // Slide-up del fondo blanco completo
         this.loader.style.transform = 'translateY(-100%)';
         
-        setTimeout(() => {
+        /*setTimeout(() => {
           // Resetear contenedor principal
           this.loader.style.opacity = '0';
           this.loader.style.pointerEvents = 'none';
-        }, 300);
+        }, 1000);
 
         setTimeout(() => {
           // Resetear contenedor principal
           this.loader.style.transform = 'translateY(0)';
-        }, 700);
+        }, 1200);*/
       }
     }, 100);
   }

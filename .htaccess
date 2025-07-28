@@ -1,10 +1,9 @@
 RewriteEngine On
-RewriteBase /
 
 # Si el archivo o directorio no existe, redirige a index.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.html [QSA,L]
+RewriteRule . index.html [L]
 
 # Headers para SPA
 <IfModule mod_headers.c>
